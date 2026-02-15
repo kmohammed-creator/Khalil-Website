@@ -1,226 +1,659 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finance & Operations Portal | Khalil Mohammed</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SJCMAT Finance & Operations Portal</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --primary:#1f3a8a;
-  --secondary:#d4af37;
-  --light:#f8fafc;
-  --dark:#0f172a;
-  --card:#ffffff;
-}
+  :root{
+    --navy:#1f3a8a;
+    --gold:#d4af37;
+    --bg:#f8fafc;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --card:#ffffff;
+    --stroke: rgba(15, 23, 42, 0.10);
+    --shadow: 0 18px 50px rgba(2,6,23,.08);
+    --radius: 14px;
+  }
 
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
-}
+  *{box-sizing:border-box; margin:0; padding:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--ink);}
 
-body {
-  background:var(--light);
-  padding:40px;
-}
+  /* Top bar */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(12px);
+    background:rgba(248,250,252,.75);
+    border-bottom:1px solid var(--stroke);
+  }
+  .topbar-inner{
+    max-width:1200px; margin:0 auto; padding:14px 18px;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+  }
+  .brand{display:flex; flex-direction:column; line-height:1.1;}
+  .brand b{font-size:14px; letter-spacing:.2px;}
+  .brand span{font-size:12px; color:var(--muted);}
+  .nav{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;
+  }
+  .nav button{
+    border:1px solid var(--stroke);
+    background:#fff;
+    padding:10px 12px;
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:600;
+    color:var(--ink);
+    transition:.18s ease;
+  }
+  .nav button:hover{transform:translateY(-1px); box-shadow:0 10px 20px rgba(2,6,23,.06);}
+  .nav button.active{background:var(--navy); color:#fff; border-color:transparent;}
+  .nav button.accent{background:var(--gold); border-color:transparent;}
+  .nav button.accent:hover{filter:brightness(.98);}
 
-h1 {
-  margin-bottom:20px;
-}
+  /* Layout */
+  .wrap{max-width:1200px; margin:0 auto; padding:26px 18px 70px;}
+  .hero{
+    background:linear-gradient(135deg, var(--navy), #142a65);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:26px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    position:relative;
+  }
+  .hero:after{
+    content:"";
+    position:absolute; inset:-40%;
+    background:radial-gradient(circle at 30% 30%, rgba(212,175,55,.22), transparent 40%),
+               radial-gradient(circle at 70% 40%, rgba(255,255,255,.12), transparent 40%);
+    transform:rotate(12deg);
+  }
+  .hero-inner{position:relative; display:flex; flex-direction:column; gap:10px;}
+  .hero h1{font-size:28px; letter-spacing:.2px;}
+  .hero p{color:rgba(255,255,255,.85); max-width:900px;}
+  .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+  .pill{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.18);
+    padding:8px 10px;
+    border-radius:999px;
+    font-size:12px;
+  }
 
-.tabs {
-  display:flex;
-  margin-bottom:30px;
-}
+  /* Sections */
+  .grid{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap:16px;
+  }
+  @media (max-width: 980px){
+    .grid{grid-template-columns:1fr;}
+  }
 
-.tab {
-  padding:12px 25px;
-  cursor:pointer;
-  background:#e2e8f0;
-  margin-right:10px;
-  border-radius:6px;
-  font-weight:600;
-}
+  .card{
+    background:var(--card);
+    border:1px solid var(--stroke);
+    border-radius:var(--radius);
+    box-shadow:0 10px 28px rgba(2,6,23,.06);
+    padding:18px;
+  }
+  .card h2{font-size:18px;}
+  .sub{color:var(--muted); font-size:13px; margin-top:6px; line-height:1.55;}
+  .kpi{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px;
+  }
+  @media (max-width: 700px){ .kpi{grid-template-columns:1fr;} }
+  .kpi .box{
+    border:1px solid var(--stroke);
+    border-radius:12px;
+    padding:12px;
+  }
+  .kpi .box b{font-size:18px;}
+  .kpi .box span{display:block; margin-top:4px; color:var(--muted); font-size:12px;}
 
-.tab.active {
-  background:var(--primary);
-  color:white;
-}
+  /* Function header */
+  .fn-head{
+    display:flex; flex-direction:column; gap:10px;
+    padding:18px;
+    border:1px solid var(--stroke);
+    border-radius:var(--radius);
+    background:linear-gradient(180deg, rgba(31,58,138,.06), rgba(255,255,255,1));
+  }
+  .fn-head .row{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+  }
+  .fn-head h2{font-size:20px;}
+  .lead{
+    border:1px solid var(--stroke);
+    background:#fff;
+    border-radius:999px;
+    padding:9px 12px;
+    font-weight:700;
+    display:flex;
+    gap:8px;
+    align-items:center;
+    color:var(--ink);
+  }
+  .badge{
+    background:rgba(212,175,55,.22);
+    color: #7a5a00;
+    border:1px solid rgba(212,175,55,.35);
+    padding:3px 8px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+  }
 
-.section {
-  display:none;
-}
+  /* Tables */
+  table{width:100%; border-collapse:separate; border-spacing:0; margin-top:12px;}
+  th, td{padding:11px 10px; text-align:left; font-size:13px;}
+  th{
+    background:var(--navy); color:#fff; position:sticky; top:0;
+  }
+  tr td{border-bottom:1px solid var(--stroke);}
+  tr:hover td{background:rgba(2,6,23,.02);}
 
-.section.active {
-  display:block;
-}
+  /* Guides / SOP list */
+  .list{margin-top:12px; display:grid; gap:10px;}
+  .item{
+    border:1px solid var(--stroke);
+    border-radius:12px;
+    padding:12px;
+    background:#fff;
+    cursor:pointer;
+    transition:.15s ease;
+  }
+  .item:hover{transform:translateY(-1px); box-shadow:0 10px 20px rgba(2,6,23,.06);}
+  .item b{display:block;}
+  .item small{color:var(--muted);}
 
-.card {
-  background:var(--card);
-  padding:25px;
-  border-radius:10px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.05);
-  margin-bottom:20px;
-}
+  /* AI */
+  .ai{
+    margin-top:12px;
+    border:1px solid var(--stroke);
+    border-radius:12px;
+    padding:12px;
+    background:rgba(31,58,138,.03);
+  }
+  textarea{
+    width:100%;
+    resize:vertical;
+    min-height:90px;
+    border-radius:12px;
+    border:1px solid var(--stroke);
+    padding:10px;
+    font-size:13px;
+    outline:none;
+    background:#fff;
+  }
+  .ai-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; align-items:center;}
+  .btn{
+    background:var(--gold);
+    border:none;
+    padding:10px 12px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+  }
+  .btn.secondary{
+    background:#fff;
+    border:1px solid var(--stroke);
+    font-weight:700;
+  }
+  .status{font-size:12px; color:var(--muted);}
+  .answer{
+    margin-top:10px;
+    background:#fff;
+    border:1px solid var(--stroke);
+    border-radius:12px;
+    padding:12px;
+    font-size:13px;
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
 
-table {
-  width:100%;
-  border-collapse:collapse;
-}
+  /* View switch */
+  .view{display:none; margin-top:18px;}
+  .view.active{display:block;}
 
-th, td {
-  padding:12px;
-  border-bottom:1px solid #ddd;
-  text-align:left;
-}
-
-th {
-  background:var(--primary);
-  color:white;
-}
-
-input, textarea {
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  border-radius:6px;
-  border:1px solid #ccc;
-}
-
-button {
-  margin-top:10px;
-  padding:10px 20px;
-  background:var(--secondary);
-  border:none;
-  border-radius:6px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.ai-response {
-  margin-top:15px;
-  padding:15px;
-  background:#eef2ff;
-  border-left:4px solid var(--primary);
-  border-radius:6px;
-}
+  footer{
+    margin-top:22px;
+    color:var(--muted);
+    font-size:12px;
+    text-align:center;
+  }
 </style>
 </head>
 
 <body>
-
-<h1>Finance & Operations Command Centre</h1>
-
-<div class="tabs">
-  <div class="tab active" onclick="openTab('finance')">Finance</div>
-  <div class="tab" onclick="openTab('estates')">Estates</div>
-  <div class="tab" onclick="openTab('hs')">Health & Safety</div>
-  <div class="tab" onclick="openTab('operations')">School Operations</div>
-</div>
-
-<!-- FINANCE -->
-<div id="finance" class="section active">
-  <div class="card">
-    <h2>Finance Overview</h2>
-    <table>
-      <tr>
-        <th>Area</th>
-        <th>Status</th>
-        <th>Owner</th>
-      </tr>
-      <tr>
-        <td>Budget Monitoring</td>
-        <td>On Track</td>
-        <td>Central Finance</td>
-      </tr>
-      <tr>
-        <td>Cash Flow</td>
-        <td>Stable</td>
-        <td>CFOO</td>
-      </tr>
-      <tr>
-        <td>Audit Compliance</td>
-        <td>Compliant</td>
-        <td>Trust Board</td>
-      </tr>
-    </table>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <b>SJCMAT Finance & Operations Portal</b>
+        <span>Guides • SOPs • Command Centre • AI-assisted support</span>
+      </div>
+      <div class="nav" id="nav"></div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Ask Finance AI</h2>
-    <textarea id="financeQuestion" placeholder="Ask a finance question..."></textarea>
-    <button onclick="askAI()">Ask</button>
-    <div id="aiResponse" class="ai-response"></div>
-  </div>
-</div>
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-inner">
+        <h1>Transforming lives through world-class Catholic education — supported by strong operations</h1>
+        <p>
+          This portal centralises Finance & Operations guidance, SOPs and self-serve support for St Joseph Catholic Multi Academy Trust.
+          Built around SJCMAT’s mission and structure. (Public-facing content can be separated from internal content later.)
+        </p>
+        <div class="pillrow">
+          <div class="pill">Liverpool City Region • 10 academies</div>
+          <div class="pill">Finance • Estates • H&S • School Operations</div>
+          <div class="pill">Guides & SOP library</div>
+          <div class="pill">AI support (secure endpoint)</div>
+        </div>
+      </div>
+    </div>
 
-<!-- ESTATES -->
-<div id="estates" class="section">
-  <div class="card">
-    <h2>Estates Dashboard</h2>
-    <table>
-      <tr><th>Site</th><th>Status</th><th>Priority</th></tr>
-      <tr><td>Boiler Replacement</td><td>Planned</td><td>High</td></tr>
-      <tr><td>Roof Inspection</td><td>Completed</td><td>Medium</td></tr>
-    </table>
-  </div>
-</div>
+    <!-- HOME -->
+    <div class="view active" id="view-home">
+      <div class="grid">
+        <div class="card">
+          <h2>Command Centre</h2>
+          <div class="sub">
+            Quick operational snapshot (replace with your real KPIs). You can later connect this to SharePoint/PowerBI exports
+            or a simple JSON file in GitHub.
+          </div>
 
-<!-- H&S -->
-<div id="hs" class="section">
-  <div class="card">
-    <h2>Health & Safety</h2>
-    <table>
-      <tr><th>Item</th><th>Status</th><th>Next Review</th></tr>
-      <tr><td>Fire Risk Assessment</td><td>Up to Date</td><td>March 2026</td></tr>
-      <tr><td>Safeguarding Audit</td><td>In Progress</td><td>April 2026</td></tr>
-    </table>
-  </div>
-</div>
+          <div class="kpi">
+            <div class="box"><b>On Track</b><span>Budget monitoring</span></div>
+            <div class="box"><b>Stable</b><span>Cash flow / reserves</span></div>
+            <div class="box"><b>Compliant</b><span>Audit & controls</span></div>
+          </div>
 
-<!-- OPERATIONS -->
-<div id="operations" class="section">
-  <div class="card">
-    <h2>School Operations</h2>
-    <table>
-      <tr><th>Area</th><th>Status</th><th>Lead</th></tr>
-      <tr><td>Attendance Monitoring</td><td>Improving</td><td>Heads</td></tr>
-      <tr><td>Staffing Levels</td><td>Stable</td><td>HR</td></tr>
-    </table>
+          <table aria-label="Operational table">
+            <thead>
+              <tr><th>Area</th><th>Status</th><th>Next action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Finance</td><td>Monthly close & monitoring</td><td>Publish month-end pack</td></tr>
+              <tr><td>Estates</td><td>Planned works pipeline</td><td>Confirm termly priorities</td></tr>
+              <tr><td>Health & Safety</td><td>Core compliance cadence</td><td>Schedule next review</td></tr>
+              <tr><td>School Ops</td><td>Attendance / staffing visibility</td><td>Escalation as required</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Library shortcuts</h2>
+          <div class="sub">Jump straight to frequently used guidance.</div>
+          <div class="list">
+            <div class="item" onclick="openDoc('sop-budget-monitoring')">
+              <b>SOP: Budget monitoring</b>
+              <small>Monthly cycle, owners, escalation rules</small>
+            </div>
+            <div class="item" onclick="openDoc('guide-procurement')">
+              <b>Guide: Procurement</b>
+              <small>How to source, approvals, records</small>
+            </div>
+            <div class="item" onclick="openDoc('sop-hs-incident')">
+              <b>SOP: Incident reporting</b>
+              <small>Immediate actions, reporting timeline</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINANCE -->
+    <div class="view" id="view-finance">
+      <div class="fn-head">
+        <div class="row">
+          <h2>Finance</h2>
+          <div class="lead"><span class="badge">Lead</span> Darren Melling — Head of Finance</div>
+        </div>
+        <div class="sub">
+          Responsibilities: trust-wide budgeting & forecasting, management accounts, financial controls, cash & treasury oversight,
+          audit coordination, compliance with ESFA/DfE requirements, and support to academies on financial decision-making.
+          (Tailor this to your exact operating model.)
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Finance table</h2>
+          <div class="sub">Replace these rows with your real trackers (budget, grants, audit, contracts, etc.).</div>
+          <table>
+            <thead><tr><th>Workstream</th><th>Status</th><th>Owner</th><th>Next review</th></tr></thead>
+            <tbody>
+              <tr><td>Budget monitoring</td><td>In cycle</td><td>Central Finance</td><td>Monthly</td></tr>
+              <tr><td>Cashflow / treasury</td><td>Stable</td><td>CFOO</td><td>Weekly</td></tr>
+              <tr><td>Audit & controls</td><td>On track</td><td>Head of Finance</td><td>Termly</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Ask Finance AI</h2>
+          <div class="sub">
+            This uses a secure AI endpoint (Part B). You can also constrain it to “Finance only” and upload policy/SOP text as sources later.
+          </div>
+
+          <div class="ai">
+            <textarea id="q" placeholder="Ask a finance question (e.g. ‘What’s the process for budget virements?’)"></textarea>
+            <div class="ai-actions">
+              <button class="btn" onclick="askAI()">Ask</button>
+              <button class="btn secondary" onclick="clearAI()">Clear</button>
+              <span class="status" id="aiStatus">Ready</span>
+            </div>
+            <div class="answer" id="a" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTATES -->
+    <div class="view" id="view-estates">
+      <div class="fn-head">
+        <div class="row">
+          <h2>Estates</h2>
+          <div class="lead"><span class="badge">Lead</span> Nathan Colman — Head of Operations</div>
+        </div>
+        <div class="sub">
+          Responsibilities: estate compliance and statutory checks, maintenance planning, capital works pipeline, contractor management,
+          asset planning, condition surveys, energy efficiency/decarbonisation coordination, and site risk mitigation.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Estates table</h2>
+        <table>
+          <thead><tr><th>Item</th><th>Status</th><th>Priority</th><th>Next step</th></tr></thead>
+          <tbody>
+            <tr><td>Planned maintenance</td><td>Planned</td><td>High</td><td>Confirm term priorities</td></tr>
+            <tr><td>Compliance checks</td><td>In progress</td><td>High</td><td>Central tracker update</td></tr>
+            <tr><td>Energy strategy</td><td>Ongoing</td><td>Medium</td><td>Review consumption</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- H&S -->
+    <div class="view" id="view-hs">
+      <div class="fn-head">
+        <div class="row">
+          <h2>Health & Safety</h2>
+          <div class="lead"><span class="badge">Lead</span> Nathan Colman — Head of Operations</div>
+        </div>
+        <div class="sub">
+          Responsibilities: statutory H&S compliance framework, risk assessments, incident reporting and investigation,
+          training oversight, audit readiness, and assurance reporting to leadership/governance.
+          (If SJCMAT has a dedicated H&S lead, we’ll swap this name in.)
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>H&S table</h2>
+        <table>
+          <thead><tr><th>Control</th><th>Status</th><th>Owner</th><th>Review</th></tr></thead>
+          <tbody>
+            <tr><td>Fire risk assessments</td><td>Up to date</td><td>Site / Ops</td><td>Annual</td></tr>
+            <tr><td>Incident reporting</td><td>Active</td><td>All sites</td><td>Ongoing</td></tr>
+            <tr><td>Compliance audit cadence</td><td>In cycle</td><td>Ops</td><td>Termly</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SCHOOL OPS -->
+    <div class="view" id="view-ops">
+      <div class="fn-head">
+        <div class="row">
+          <h2>School Operations</h2>
+          <div class="lead"><span class="badge">Lead</span> Nathan Colman — Head of Operations</div>
+        </div>
+        <div class="sub">
+          Responsibilities: operational consistency across academies, policy and process implementation, business support,
+          coordination with school leaders, and operational risk management across day-to-day delivery.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>School operations table</h2>
+        <table>
+          <thead><tr><th>Area</th><th>Status</th><th>Lead</th><th>Next</th></tr></thead>
+          <tbody>
+            <tr><td>Attendance visibility</td><td>Monitoring</td><td>Education / Ops</td><td>Weekly</td></tr>
+            <tr><td>Staffing coordination</td><td>Stable</td><td>People / Ops</td><td>Ongoing</td></tr>
+            <tr><td>Operational issues log</td><td>Open</td><td>Ops</td><td>Daily</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GUIDES -->
+    <div class="view" id="view-guides">
+      <div class="fn-head">
+        <div class="row">
+          <h2>Guides</h2>
+          <div class="lead"><span class="badge">Library</span> How-to guidance</div>
+        </div>
+        <div class="sub">Guides explain *how* to do something, with examples and links to SOPs.</div>
+      </div>
+
+      <div class="card">
+        <div class="list" id="guidesList"></div>
+      </div>
+    </div>
+
+    <!-- SOPs -->
+    <div class="view" id="view-sops">
+      <div class="fn-head">
+        <div class="row">
+          <h2>SOPs</h2>
+          <div class="lead"><span class="badge">Library</span> Standard operating procedures</div>
+        </div>
+        <div class="sub">SOPs define the *required* steps, owners, controls, and evidence.</div>
+      </div>
+
+      <div class="card">
+        <div class="list" id="sopsList"></div>
+      </div>
+    </div>
+
+    <!-- DOC VIEWER -->
+    <div class="view" id="view-doc">
+      <div class="card">
+        <h2 id="docTitle">Document</h2>
+        <div class="sub" id="docMeta"></div>
+        <div style="height:10px"></div>
+        <div id="docBody" style="font-size:13px; line-height:1.7;"></div>
+        <div style="height:12px"></div>
+        <button class="btn secondary" onclick="goTo(window.__lastLibrary || 'guides')">Back to library</button>
+      </div>
+    </div>
+
+    <footer>
+      Built for St Joseph Catholic Multi Academy Trust. Public facts used for leadership references; internal content can be moved behind authentication later.
+    </footer>
   </div>
-</div>
 
 <script>
-function openTab(tabName) {
-  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-  document.getElementById(tabName).classList.add('active');
-  event.target.classList.add('active');
-}
+  // Navigation model
+  const NAV = [
+    {id:"home",   label:"Home"},
+    {id:"finance",label:"Finance"},
+    {id:"estates",label:"Estates"},
+    {id:"hs",     label:"H&S"},
+    {id:"ops",    label:"School Ops"},
+    {id:"guides", label:"Guides"},
+    {id:"sops",   label:"SOPs"},
+  ];
 
-function askAI() {
-  const question = document.getElementById('financeQuestion').value;
-  const responseBox = document.getElementById('aiResponse');
+  // Library content (starter examples — you’ll replace with SJCMAT-specific SOPs/guides)
+  const GUIDES = [
+    { id:"guide-procurement", title:"Procurement guide", area:"Finance / Ops", updated:"v1.0", summary:"Sourcing routes, approvals, record keeping.", body:[
+      "Purpose: consistent, compliant purchasing across the trust.",
+      "When to use: any purchase or contract renewal.",
+      "Core steps:",
+      "1) Define requirement & scope (including budget code).",
+      "2) Check existing frameworks / contracts.",
+      "3) Obtain quotes/tenders per thresholds.",
+      "4) Approvals (per Scheme of Delegation).",
+      "5) Place order, retain evidence, confirm delivery.",
+      "Evidence: approvals, quotes, PO, invoice, contract terms."
+    ]}
+  ];
 
-  if(question.trim() === "") {
-    responseBox.innerHTML = "Please enter a finance question.";
-    return;
+  const SOPS = [
+    { id:"sop-budget-monitoring", title:"SOP: Budget monitoring", area:"Finance", updated:"v1.0", summary:"Month-end cycle, variance thresholds, escalation.", body:[
+      "Objective: ensure budget performance is monitored and acted on.",
+      "Frequency: monthly (with weekly cash checks if needed).",
+      "Inputs: ledger, payroll reports, commitments, grant schedules.",
+      "Steps:",
+      "1) Close month (cut-off, accruals, journals).",
+      "2) Produce management accounts and variance analysis.",
+      "3) Review with budget holders and agree actions.",
+      "4) Escalate variances above threshold.",
+      "5) Record decisions and update forecast.",
+      "Controls: separation of duties, approval logs, audit trail."
+    ]},
+    { id:"sop-hs-incident", title:"SOP: Incident reporting", area:"Health & Safety", updated:"v1.0", summary:"Immediate response, reporting timeline, investigation.", body:[
+      "Objective: protect people, comply with reporting duties, learn lessons.",
+      "Immediate: make safe, call emergency services if needed, inform SLT.",
+      "Record: capture facts, witness statements, photos where appropriate.",
+      "Report: log in system, determine if RIDDOR applies.",
+      "Investigate: root cause, corrective actions, follow-up checks.",
+      "Evidence: incident form, investigation notes, actions & completion."
+    ]}
+  ];
+
+  // Build top nav
+  const navEl = document.getElementById("nav");
+  NAV.forEach(x=>{
+    const b=document.createElement("button");
+    b.textContent=x.label;
+    b.onclick=()=>goTo(x.id);
+    b.id="nav-"+x.id;
+    navEl.appendChild(b);
+  });
+
+  // Render library lists
+  function renderLists(){
+    const g = document.getElementById("guidesList");
+    const s = document.getElementById("sopsList");
+    g.innerHTML = GUIDES.map(d=>`
+      <div class="item" onclick="openDoc('${d.id}', 'guides')">
+        <b>${d.title}</b>
+        <small>${d.area} • ${d.updated} • ${d.summary}</small>
+      </div>`).join("");
+    s.innerHTML = SOPS.map(d=>`
+      <div class="item" onclick="openDoc('${d.id}', 'sops')">
+        <b>${d.title}</b>
+        <small>${d.area} • ${d.updated} • ${d.summary}</small>
+      </div>`).join("");
+  }
+  renderLists();
+
+  // View routing
+  function goTo(id){
+    // highlight nav
+    NAV.forEach(x=>document.getElementById("nav-"+x.id)?.classList.remove("active"));
+    document.getElementById("nav-"+id)?.classList.add("active");
+
+    // show view
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    const v = document.getElementById("view-"+id);
+    if(v) v.classList.add("active");
+
+    // update hash for deep linking
+    window.location.hash = id;
   }
 
-  // Simulated AI logic
-  if(question.toLowerCase().includes("budget")) {
-    responseBox.innerHTML = "Based on current projections, budget monitoring remains within forecast tolerance.";
-  } else if(question.toLowerCase().includes("cash")) {
-    responseBox.innerHTML = "Cash flow is stable across the trust with positive reserves trajectory.";
-  } else {
-    responseBox.innerHTML = "Finance AI suggests reviewing current KPI dashboards and forecast assumptions.";
+  function openDoc(docId, library){
+    window.__lastLibrary = library || window.__lastLibrary;
+    const doc = [...GUIDES, ...SOPS].find(x=>x.id===docId);
+    if(!doc) return;
+    document.getElementById("docTitle").textContent = doc.title;
+    document.getElementById("docMeta").textContent = `${doc.area} • ${doc.updated} • ${doc.summary}`;
+    document.getElementById("docBody").innerHTML = `
+      <ul style="margin-left:18px; display:grid; gap:8px;">
+        ${doc.body.map(line=>`<li>${escapeHtml(line)}</li>`).join("")}
+      </ul>
+    `;
+    // Switch view
+    NAV.forEach(x=>document.getElementById("nav-"+x.id)?.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    document.getElementById("view-doc").classList.add("active");
+    window.location.hash = "doc:"+docId;
   }
-}
+
+  function escapeHtml(s){
+    return String(s)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // Finance AI (calls a secure endpoint you’ll create)
+  async function askAI(){
+    const q = document.getElementById("q").value.trim();
+    const a = document.getElementById("a");
+    const st = document.getElementById("aiStatus");
+    if(!q){ st.textContent="Type a question first."; return; }
+
+    st.textContent="Asking AI…";
+    a.style.display="none";
+    a.textContent="";
+
+    try{
+      // IMPORTANT: replace this with your deployed endpoint in Part B:
+      const endpoint = window.AI_ENDPOINT || "https://YOUR-VERCEL-APP.vercel.app/api/finance-ai";
+
+      const res = await fetch(endpoint, {
+        method:"POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ question: q })
+      });
+
+      if(!res.ok){
+        const txt = await res.text();
+        throw new Error(`AI endpoint error (${res.status}): ${txt}`);
+      }
+
+      const data = await res.json();
+      a.textContent = data.answer || "No answer returned.";
+      a.style.display="block";
+      st.textContent="Done";
+    }catch(err){
+      a.textContent = "Couldn’t reach AI endpoint yet. Once Part B is deployed, this will work.\n\n" + err.message;
+      a.style.display="block";
+      st.textContent="Error";
+    }
+  }
+
+  function clearAI(){
+    document.getElementById("q").value="";
+    const a = document.getElementById("a");
+    a.style.display="none"; a.textContent="";
+    document.getElementById("aiStatus").textContent="Ready";
+  }
+
+  // Load route on refresh
+  (function init(){
+    const h = (window.location.hash||"").replace("#","");
+    if(!h){ goTo("home"); return; }
+    if(h.startsWith("doc:")){ openDoc(h.slice(4)); return; }
+    const ok = NAV.some(x=>x.id===h);
+    goTo(ok ? h : "home");
+  })();
 </script>
-
 </body>
 </html>
