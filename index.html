@@ -5,251 +5,284 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Khalil Mohammed | CFOO</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 <style>
 :root {
-    --primary: #1f3a8a;      /* Deep SJCMAT-style navy */
-    --secondary: #d4af37;    /* Gold accent */
-    --light: #f5f7fa;
-    --dark: #111827;
-    --grey: #6b7280;
+  --primary: #1f3a8a;
+  --secondary: #d4af37;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --text: #1e293b;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+  scroll-behavior:smooth;
 }
 
 body {
-    background: var(--light);
-    color: var(--dark);
-    line-height: 1.6;
+  background:var(--light);
+  color:var(--text);
+  transition:0.4s ease;
+}
+
+.dark {
+  background:var(--dark);
+  color:white;
+}
+
+nav {
+  position:fixed;
+  width:100%;
+  top:0;
+  backdrop-filter: blur(12px);
+  background:rgba(255,255,255,0.8);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  z-index:1000;
+}
+
+.dark nav {
+  background:rgba(15,23,42,0.8);
+}
+
+nav a {
+  text-decoration:none;
+  color:var(--primary);
+  margin-left:20px;
+  font-weight:600;
+}
+
+nav button {
+  background:var(--secondary);
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+  cursor:pointer;
 }
 
 header {
-    background: linear-gradient(135deg, var(--primary), #162a63);
-    color: white;
-    padding: 80px 20px;
-    text-align: center;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,var(--primary),#162a63);
+  color:white;
+  text-align:center;
+  padding:20px;
 }
 
 header h1 {
-    font-size: 3rem;
-    letter-spacing: 1px;
+  font-size:3.5rem;
+  font-weight:800;
+  animation:fadeIn 1.5s ease;
 }
 
 header p {
-    font-size: 1.3rem;
-    margin-top: 10px;
-    color: var(--secondary);
-    font-weight: 500;
-}
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 60px 20px;
+  font-size:1.4rem;
+  color:var(--secondary);
+  margin-top:10px;
+  animation:fadeIn 2s ease;
 }
 
 section {
-    margin-bottom: 70px;
+  padding:100px 10%;
 }
 
-section h2 {
-    color: var(--primary);
-    margin-bottom: 25px;
-    font-size: 2rem;
-    border-left: 6px solid var(--secondary);
-    padding-left: 12px;
+h2 {
+  font-size:2rem;
+  margin-bottom:40px;
+  border-left:6px solid var(--secondary);
+  padding-left:15px;
 }
 
 .card {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
+  background:white;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.05);
+  margin-bottom:25px;
+  transition:0.4s ease;
 }
 
-ul {
-    list-style: none;
+.dark .card {
+  background:#1e293b;
 }
 
-ul li::before {
-    content: "•";
-    color: var(--secondary);
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
+.card:hover {
+  transform:translateY(-8px);
 }
 
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+.skills {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
 }
 
 .skill {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    font-weight: 500;
+  padding:20px;
+  text-align:center;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.05);
+  transition:0.3s ease;
 }
 
-button {
-    background: var(--secondary);
-    color: var(--dark);
-    padding: 12px 25px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
+.dark .skill {
+  background:#1e293b;
 }
 
-button:hover {
-    background: #c19d2e;
+.skill:hover {
+  background:var(--secondary);
+  color:black;
+}
+
+.stats {
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  text-align:center;
+}
+
+.stat h3 {
+  font-size:3rem;
+  color:var(--secondary);
 }
 
 footer {
-    background: var(--primary);
-    color: white;
-    text-align: center;
-    padding: 30px;
+  text-align:center;
+  padding:40px;
+  background:var(--primary);
+  color:white;
 }
 
-a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
+.fade {
+  opacity:0;
+  transform:translateY(30px);
+  transition:1s ease;
 }
 
-a:hover {
-    text-decoration: underline;
+.fade.visible {
+  opacity:1;
+  transform:translateY(0);
 }
 
-.contact a {
-    display: block;
-    margin-bottom: 8px;
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
+<nav>
+  <div><strong>Khalil Mohammed</strong></div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+    <button onclick="toggleMode()">Dark Mode</button>
+  </div>
+</nav>
+
 <header>
-    <h1>Khalil Mohammed</h1>
-    <p>Chief Financial & Operations Officer (CFOO)</p>
+  <h1>Chief Financial & Operations Officer</h1>
+  <p>Strategic • Data-Driven • Transformational Leadership</p>
 </header>
 
-<div class="container">
-
-<section>
-    <h2>About</h2>
-    <div class="card">
-        <p>
-            Strategic and commercially driven Chief Financial & Operations Officer with extensive experience 
-            leading finance, estates, HR, compliance, and operational excellence across a multi-academy trust environment. 
-            Passionate about sustainable growth, robust governance, and delivering high-impact outcomes for schools and communities.
-        </p>
-    </div>
+<section id="about" class="fade">
+  <h2>Executive Profile</h2>
+  <div class="card">
+    Strategic CFOO leading finance, estates, HR and operational transformation across a multi-academy trust.
+    Specialist in long-term sustainability modelling, governance, procurement optimisation and high-performance
+    central service design.
+  </div>
 </section>
 
-<section>
-    <h2>Experience</h2>
-    <div class="card">
-        <h3>CFOO – SJCMAT</h3>
-        <p><em>Executive Leadership</em></p>
-        <ul>
-            <li>Lead trust-wide financial strategy, budgeting, and long-term sustainability planning.</li>
-            <li>Oversee estates, procurement, HR, compliance, and operational frameworks.</li>
-            <li>Drive efficiency programmes and curriculum financial planning (CLFP).</li>
-            <li>Ensure strong governance, audit compliance, and regulatory adherence.</li>
-        </ul>
+<section id="experience" class="fade">
+  <h2>Leadership Impact</h2>
+  <div class="stats">
+    <div class="stat">
+      <h3 class="counter" data-target="3">0</h3>
+      <p>Year Strategic Plans</p>
     </div>
-
-    <div class="card">
-        <h3>Senior Finance & Operations Leadership</h3>
-        <ul>
-            <li>Delivered multi-year financial recovery and growth strategies.</li>
-            <li>Implemented KPI dashboards and data-led decision frameworks.</li>
-            <li>Negotiated high-value contracts and framework agreements.</li>
-        </ul>
+    <div class="stat">
+      <h3 class="counter" data-target="9">0</h3>
+      <p>Schools Supported</p>
     </div>
+    <div class="stat">
+      <h3 class="counter" data-target="100">0</h3>
+      <p>% Governance Compliance</p>
+    </div>
+  </div>
 </section>
 
-<section>
-    <h2>Education</h2>
-    <div class="card">
-        <ul>
-            <li>Professional Accounting Qualification (ACCA/CIMA equivalent)</li>
-            <li>MBA – Strategic Leadership & Finance</li>
-            <li>Ongoing Executive Development in Governance & Trust Growth</li>
-        </ul>
-    </div>
+<section id="skills" class="fade">
+  <h2>Core Expertise</h2>
+  <div class="skills">
+    <div class="skill">Financial Strategy</div>
+    <div class="skill">MAT Growth Planning</div>
+    <div class="skill">Risk & Compliance</div>
+    <div class="skill">Capital & Estates</div>
+    <div class="skill">Workforce Planning</div>
+    <div class="skill">Procurement Strategy</div>
+    <div class="skill">Data Analytics</div>
+    <div class="skill">Operational Transformation</div>
+  </div>
 </section>
 
-<section>
-    <h2>Skills & Expertise</h2>
-    <div class="skills-grid">
-        <div class="skill">Financial Strategy</div>
-        <div class="skill">Multi-Academy Trust Leadership</div>
-        <div class="skill">Budget Forecasting</div>
-        <div class="skill">Estates & Capital Planning</div>
-        <div class="skill">HR & Workforce Planning</div>
-        <div class="skill">Risk & Compliance</div>
-        <div class="skill">Procurement & Contracts</div>
-        <div class="skill">Data Analytics</div>
-    </div>
+<section id="contact" class="fade">
+  <h2>Contact</h2>
+  <div class="card">
+    <p>Email: k.mohammed@stjosephmat.org.uk</p>
+    <p>LinkedIn: (Add Your Link)</p>
+  </div>
 </section>
-
-<section>
-    <h2>Projects</h2>
-    <div class="card">
-        <h3>Trust Financial Sustainability Model</h3>
-        <p>Developed integrated 3-year financial forecasting aligned to national funding assumptions and workforce strategy.</p>
-    </div>
-
-    <div class="card">
-        <h3>Energy & Decarbonisation Strategy</h3>
-        <p>Led estate-wide efficiency initiatives, reducing projected long-term utility costs and supporting carbon reduction goals.</p>
-    </div>
-
-    <div class="card">
-        <h3>Operational Transformation Framework</h3>
-        <p>Designed centralised service model improving consistency, governance, and cost control across schools.</p>
-    </div>
-</section>
-
-<section>
-    <h2>Certifications</h2>
-    <div class="card">
-        <ul>
-            <li>Chartered Finance Professional</li>
-            <li>Safer Recruitment Trained</li>
-            <li>Risk Management & Internal Audit Certification</li>
-        </ul>
-    </div>
-</section>
-
-<section>
-    <h2>Contact</h2>
-    <div class="card contact">
-        <a href="mailto:k.mohammed@stjosephmat.org.uk">k.mohammed@stjosephmat.org.uk</a>
-        <a href="#">LinkedIn Profile</a>
-        <br>
-        <button onclick="alert('CV download feature coming soon!')">Download CV</button>
-    </div>
-</section>
-
-</div>
 
 <footer>
-    © 2026 Khalil Mohammed | CFOO
+  © 2026 Khalil Mohammed | CFOO
 </footer>
+
+<script>
+function toggleMode() {
+  document.body.classList.toggle("dark");
+}
+
+const counters = document.querySelectorAll('.counter');
+counters.forEach(counter => {
+  const updateCount = () => {
+    const target = +counter.getAttribute('data-target');
+    const count = +counter.innerText;
+    const inc = target / 100;
+    if(count < target){
+      counter.innerText = Math.ceil(count + inc);
+      setTimeout(updateCount, 20);
+    } else {
+      counter.innerText = target;
+    }
+  };
+  updateCount();
+});
+
+const faders = document.querySelectorAll('.fade');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+});
+faders.forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
