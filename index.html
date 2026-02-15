@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khalil Mohammed | CFOO</title>
+<title>Finance & Operations Portal | Khalil Mohammed</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --primary: #1f3a8a;
-  --secondary: #d4af37;
-  --dark: #0f172a;
-  --light: #f8fafc;
-  --text: #1e293b;
+  --primary:#1f3a8a;
+  --secondary:#d4af37;
+  --light:#f8fafc;
+  --dark:#0f172a;
+  --card:#ffffff;
 }
 
 * {
@@ -21,267 +21,205 @@
   padding:0;
   box-sizing:border-box;
   font-family:'Inter',sans-serif;
-  scroll-behavior:smooth;
 }
 
 body {
   background:var(--light);
-  color:var(--text);
-  transition:0.4s ease;
+  padding:40px;
 }
 
-.dark {
-  background:var(--dark);
-  color:white;
+h1 {
+  margin-bottom:20px;
 }
 
-nav {
-  position:fixed;
-  width:100%;
-  top:0;
-  backdrop-filter: blur(12px);
-  background:rgba(255,255,255,0.8);
+.tabs {
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 40px;
-  z-index:1000;
+  margin-bottom:30px;
 }
 
-.dark nav {
-  background:rgba(15,23,42,0.8);
-}
-
-nav a {
-  text-decoration:none;
-  color:var(--primary);
-  margin-left:20px;
+.tab {
+  padding:12px 25px;
+  cursor:pointer;
+  background:#e2e8f0;
+  margin-right:10px;
+  border-radius:6px;
   font-weight:600;
 }
 
-nav button {
-  background:var(--secondary);
-  border:none;
-  padding:8px 15px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-header {
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,var(--primary),#162a63);
-  color:white;
-  text-align:center;
-  padding:20px;
-}
-
-header h1 {
-  font-size:3.5rem;
-  font-weight:800;
-  animation:fadeIn 1.5s ease;
-}
-
-header p {
-  font-size:1.4rem;
-  color:var(--secondary);
-  margin-top:10px;
-  animation:fadeIn 2s ease;
-}
-
-section {
-  padding:100px 10%;
-}
-
-h2 {
-  font-size:2rem;
-  margin-bottom:40px;
-  border-left:6px solid var(--secondary);
-  padding-left:15px;
-}
-
-.card {
-  background:white;
-  padding:30px;
-  border-radius:12px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.05);
-  margin-bottom:25px;
-  transition:0.4s ease;
-}
-
-.dark .card {
-  background:#1e293b;
-}
-
-.card:hover {
-  transform:translateY(-8px);
-}
-
-.skills {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:20px;
-}
-
-.skill {
-  padding:20px;
-  text-align:center;
-  background:white;
-  border-radius:10px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.05);
-  transition:0.3s ease;
-}
-
-.dark .skill {
-  background:#1e293b;
-}
-
-.skill:hover {
-  background:var(--secondary);
-  color:black;
-}
-
-.stats {
-  display:flex;
-  justify-content:space-around;
-  flex-wrap:wrap;
-  text-align:center;
-}
-
-.stat h3 {
-  font-size:3rem;
-  color:var(--secondary);
-}
-
-footer {
-  text-align:center;
-  padding:40px;
+.tab.active {
   background:var(--primary);
   color:white;
 }
 
-.fade {
-  opacity:0;
-  transform:translateY(30px);
-  transition:1s ease;
+.section {
+  display:none;
 }
 
-.fade.visible {
-  opacity:1;
-  transform:translateY(0);
+.section.active {
+  display:block;
 }
 
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(20px);}
-  to {opacity:1; transform:translateY(0);}
+.card {
+  background:var(--card);
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.05);
+  margin-bottom:20px;
+}
+
+table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+th, td {
+  padding:12px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+}
+
+th {
+  background:var(--primary);
+  color:white;
+}
+
+input, textarea {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+button {
+  margin-top:10px;
+  padding:10px 20px;
+  background:var(--secondary);
+  border:none;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.ai-response {
+  margin-top:15px;
+  padding:15px;
+  background:#eef2ff;
+  border-left:4px solid var(--primary);
+  border-radius:6px;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div><strong>Khalil Mohammed</strong></div>
-  <div>
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-    <button onclick="toggleMode()">Dark Mode</button>
-  </div>
-</nav>
+<h1>Finance & Operations Command Centre</h1>
 
-<header>
-  <h1>Chief Financial & Operations Officer</h1>
-  <p>Strategic • Data-Driven • Transformational Leadership</p>
-</header>
+<div class="tabs">
+  <div class="tab active" onclick="openTab('finance')">Finance</div>
+  <div class="tab" onclick="openTab('estates')">Estates</div>
+  <div class="tab" onclick="openTab('hs')">Health & Safety</div>
+  <div class="tab" onclick="openTab('operations')">School Operations</div>
+</div>
 
-<section id="about" class="fade">
-  <h2>Executive Profile</h2>
+<!-- FINANCE -->
+<div id="finance" class="section active">
   <div class="card">
-    Strategic CFOO leading finance, estates, HR and operational transformation across a multi-academy trust.
-    Specialist in long-term sustainability modelling, governance, procurement optimisation and high-performance
-    central service design.
+    <h2>Finance Overview</h2>
+    <table>
+      <tr>
+        <th>Area</th>
+        <th>Status</th>
+        <th>Owner</th>
+      </tr>
+      <tr>
+        <td>Budget Monitoring</td>
+        <td>On Track</td>
+        <td>Central Finance</td>
+      </tr>
+      <tr>
+        <td>Cash Flow</td>
+        <td>Stable</td>
+        <td>CFOO</td>
+      </tr>
+      <tr>
+        <td>Audit Compliance</td>
+        <td>Compliant</td>
+        <td>Trust Board</td>
+      </tr>
+    </table>
   </div>
-</section>
 
-<section id="experience" class="fade">
-  <h2>Leadership Impact</h2>
-  <div class="stats">
-    <div class="stat">
-      <h3 class="counter" data-target="3">0</h3>
-      <p>Year Strategic Plans</p>
-    </div>
-    <div class="stat">
-      <h3 class="counter" data-target="9">0</h3>
-      <p>Schools Supported</p>
-    </div>
-    <div class="stat">
-      <h3 class="counter" data-target="100">0</h3>
-      <p>% Governance Compliance</p>
-    </div>
-  </div>
-</section>
-
-<section id="skills" class="fade">
-  <h2>Core Expertise</h2>
-  <div class="skills">
-    <div class="skill">Financial Strategy</div>
-    <div class="skill">MAT Growth Planning</div>
-    <div class="skill">Risk & Compliance</div>
-    <div class="skill">Capital & Estates</div>
-    <div class="skill">Workforce Planning</div>
-    <div class="skill">Procurement Strategy</div>
-    <div class="skill">Data Analytics</div>
-    <div class="skill">Operational Transformation</div>
-  </div>
-</section>
-
-<section id="contact" class="fade">
-  <h2>Contact</h2>
   <div class="card">
-    <p>Email: k.mohammed@stjosephmat.org.uk</p>
-    <p>LinkedIn: (Add Your Link)</p>
+    <h2>Ask Finance AI</h2>
+    <textarea id="financeQuestion" placeholder="Ask a finance question..."></textarea>
+    <button onclick="askAI()">Ask</button>
+    <div id="aiResponse" class="ai-response"></div>
   </div>
-</section>
+</div>
 
-<footer>
-  © 2026 Khalil Mohammed | CFOO
-</footer>
+<!-- ESTATES -->
+<div id="estates" class="section">
+  <div class="card">
+    <h2>Estates Dashboard</h2>
+    <table>
+      <tr><th>Site</th><th>Status</th><th>Priority</th></tr>
+      <tr><td>Boiler Replacement</td><td>Planned</td><td>High</td></tr>
+      <tr><td>Roof Inspection</td><td>Completed</td><td>Medium</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- H&S -->
+<div id="hs" class="section">
+  <div class="card">
+    <h2>Health & Safety</h2>
+    <table>
+      <tr><th>Item</th><th>Status</th><th>Next Review</th></tr>
+      <tr><td>Fire Risk Assessment</td><td>Up to Date</td><td>March 2026</td></tr>
+      <tr><td>Safeguarding Audit</td><td>In Progress</td><td>April 2026</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- OPERATIONS -->
+<div id="operations" class="section">
+  <div class="card">
+    <h2>School Operations</h2>
+    <table>
+      <tr><th>Area</th><th>Status</th><th>Lead</th></tr>
+      <tr><td>Attendance Monitoring</td><td>Improving</td><td>Heads</td></tr>
+      <tr><td>Staffing Levels</td><td>Stable</td><td>HR</td></tr>
+    </table>
+  </div>
+</div>
 
 <script>
-function toggleMode() {
-  document.body.classList.toggle("dark");
+function openTab(tabName) {
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  event.target.classList.add('active');
 }
 
-const counters = document.querySelectorAll('.counter');
-counters.forEach(counter => {
-  const updateCount = () => {
-    const target = +counter.getAttribute('data-target');
-    const count = +counter.innerText;
-    const inc = target / 100;
-    if(count < target){
-      counter.innerText = Math.ceil(count + inc);
-      setTimeout(updateCount, 20);
-    } else {
-      counter.innerText = target;
-    }
-  };
-  updateCount();
-});
+function askAI() {
+  const question = document.getElementById('financeQuestion').value;
+  const responseBox = document.getElementById('aiResponse');
 
-const faders = document.querySelectorAll('.fade');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
-  });
-});
-faders.forEach(el => observer.observe(el));
+  if(question.trim() === "") {
+    responseBox.innerHTML = "Please enter a finance question.";
+    return;
+  }
+
+  // Simulated AI logic
+  if(question.toLowerCase().includes("budget")) {
+    responseBox.innerHTML = "Based on current projections, budget monitoring remains within forecast tolerance.";
+  } else if(question.toLowerCase().includes("cash")) {
+    responseBox.innerHTML = "Cash flow is stable across the trust with positive reserves trajectory.";
+  } else {
+    responseBox.innerHTML = "Finance AI suggests reviewing current KPI dashboards and forecast assumptions.";
+  }
+}
 </script>
 
 </body>
